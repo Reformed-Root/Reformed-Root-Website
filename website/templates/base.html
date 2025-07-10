@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <!--Link Fonts-->
+    <link href="https://googleapis.com/css2?family=Permanent+Marker&display=swap" rel="stylesheet">
+    <!--Set character encoding to UTF-8-->
+    <meta charset="utf-8" />
+    <!--Set the viewport to make the page responsive to mobile devices-->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--Link to BootStrap 4 CSS for styling-->
+    <link
+      rel="stylesheet" 
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
+      crossorigin="anonymous"
+    />
+    <link 
+        rel="stylesheet"
+        href="{{ url_for('static', filename='css/style.css') }}"
+    >
+    <!--Page title, can be replaced by child templates using block title-->
+    <title>{% block title %}Home{% endblock %}</title>
+
+    <!--Favicons-->
+    <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicons/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicons/favicon-16x16.png') }}">
+    <link rel="apple-touch-icon" href="{{ url_for('static', filename='favicons/apple-touch-icon.png') }}">
+    <link rel="manifest" href"{{ url_for('static', filename='favicons/site.webmanifest') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicons/favicon.ico') }}">
+  </head>
+  <body class="{% block body_class %}{% endblock %}">
+
+    <!--Navigation bar at the top of the page-->
+    <div class="nav">
+        <div class="nav-left">
+            <img src="{{ url_for('static', filename='images/reformed-root.png') }}" alt="logo">
+            {% if user %}
+                <span class="nav-user">Hello, {{ user }}</span>
+            {% else %}
+                <span class="nav-user">Welcome, guest</span>
+            {% endif %}
+        </div>
+
+        <ul>
+            <li><a href="{{ url_for('views.home') }}">Home</a></li>
+            <li><a href="{{ url_for('views.about') }}">About</a></li>
+            <li><a href="{{ url_for('views.services') }}">Services</a></li>
+            <li><a href="{{ url_for('views.contact') }}">Contact</a><li>
+            <li><a href="{{ url_for('views.challenge') }}">SQLi Challenge</a></li>
+            {% if user%}
+                <li><a href="{{ url_for('views.logout') }}">Logout</a><li>
+            {% endif %}
+        </ul>
+    </div>
+            
+
+    <!--Main page container where specific page content will be inserted-->
+    <main class="container mt-4">
+      {% block content %}{% endblock %}
+    </main>
+    
+    <!--Load JavaScript libraries for BootStrap functionality-->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      crossorigin="anonymous"
+    ></script>
+
+    <!---Created a footer with embedded media player --->
+    <footer style="background-color: grey; color: #ccc; padding: 20px; text-align: center;">
+      <div style="float:right; bottom:10px; right:10px; background-color:black; padding:5px; border-radius:10px;">
+          <iframe 
+              width="300" 
+              height="80" 
+              src="https://www.youtube.com/embed/videoseries?list=PLenUrOlreSp6EXV4PJWLEvLIdnacjn-2w&autoplay=1&mute=1" 
+              title="Metallica Playlist"
+              frameborder="0"
+              allow="autoplay; encrypted-media"
+              allowfullscreen>
+          </iframe>
+      </div>
+
+      <p style="text-align:center; color:khaki; padding-top:10px;">
+        &copy; 2025 Reformed-Root Cyber Solutions. All rights reserved.
+      </p>   
+
+    </footer>
+  
+
+  </body>
+</html>

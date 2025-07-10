@@ -1,0 +1,136 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+.home{
+    background: url("../images/RRbackground.jpeg");
+    background-size: cover;
+    height: 100vh;
+}
+
+body.about{
+    background: url("../images/RRbackground.jpeg");
+    background-size: cover;
+    height: 100vh;
+    color: khaki;
+   
+}
+
+body.about .text-container {
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 10px;
+    font-family: 'Permanent Marker', cursive;
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: 1px;
+    /*text-shadow: 0 0 3px #ffd700, 0 0 6px #ffd700;*/
+    line-height: 1.6;
+    width: fit-content;
+    margin-left: 40px;
+    padding: 20px;
+    
+}
+
+.nav{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    padding: 0 20px;
+    height:80px;
+    background: grey;
+}
+/*.nav div{
+    position: absolute;
+}*/
+/*.nav ul{
+    position: absolute;
+    right: 5px;
+}*/
+.nav ul li{
+    display: inline-block;
+}
+.nav ul li a{
+    color: gold;
+    padding: 5px;
+}
+ .nav-logo img{
+    height: 100px;
+    width: auto;
+    display: flex;
+    margin: auto 0;
+    max-height: 100%;
+    object-fit: contain;
+}
+.home .text-container{
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 10vh;
+    color: khaki;
+}
+
+.nav-left {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.nav-left img {
+    height: 100px;
+    max-height: 100%;;
+}
+
+.nav-user {
+    color: gold;
+    font-weight: bold;
+    font-size: 1rem;
+    line-height: 1;
+}
+
+@media (max-width: 600px){   
+    .nav {
+        flex-wrap: wrap;
+        justify-content: center;
+        height: auto;
+        padding: 10px;
+   }
+    .nav ul {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+        padding: 0;
+        max-width: 95%;
+        margin: 0 auto;
+        list-style: none;
+   }
+    .nav ul li {
+        display: inline-block;
+        margin: 0;
+   }
+    .nav ul li a {
+        font-size: 0.9rem;
+        padding: 4px 6px;
+   }
+    .nav-logo img {
+        height: 60px;
+   }
+     .nav a {
+        font-size: 0.85rem;
+    }
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
+
