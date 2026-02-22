@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
   <head>
@@ -44,10 +45,13 @@
             <li><a href="{{ url_for('views.home') }}">Home</a></li>
             <li><a href="{{ url_for('views.about') }}">About</a></li>
             <li><a href="{{ url_for('views.services') }}">Services</a></li>
-            <li><a href="{{ url_for('views.contact') }}">Contact</a><li>
+            <li><a href="{{ url_for('views.contact') }}">Contact</a></li>
+            <li><a href="{{ url_for('views.num_tracker') }}">Pizza Numbers</a></li>
+            <li><a href="{{ url_for('views.vault_roller') }}">Vault Roller</a></li>
             <li><a href="{{ url_for('views.challenge') }}">SQLi Challenge</a></li>
+            <li><a href="{{ url_for('views.dough_par') }}">Dough Par</a></li>
             {% if user%}
-                <li><a href="{{ url_for('views.logout') }}">Logout</a><li>
+                <li><a href="{{ url_for('views.logout') }}">Logout</a></li>
             {% endif %}
         </ul>
     </div>
@@ -71,13 +75,17 @@
       src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
       crossorigin="anonymous"
     ></script>
+    {% block scripts %}
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+      <script src="https://unpkg.com/@3d-dice/dice-box@1.0.0/dist/dice-box.min.js"></script>
+    {% endblock %}
 
     <!---Created a footer with embedded media player --->
     <footer style="background-color: grey; color: #ccc; padding: 20px; text-align: center;">
       <div style="float:right; bottom:10px; right:10px; background-color:black; padding:5px; border-radius:10px;">
           <iframe 
               width="300" 
-              height="80" 
+              height="90" 
               src="https://www.youtube.com/embed/videoseries?list=PLenUrOlreSp6EXV4PJWLEvLIdnacjn-2w&autoplay=1&mute=1" 
               title="Metallica Playlist"
               frameborder="0"

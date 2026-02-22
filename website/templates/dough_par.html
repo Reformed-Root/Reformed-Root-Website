@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+{% block title %}Dough Tracker{% endblock %}
+
+{% block body_class %}dough{% endblock %}
+
+{% block content %}
+
+<div class="dough_container">
+  <p id="dayLabel" class="text-center mb-3"></p>
+
+  <div class="row mb-2">
+    <div class="col-4 text-end"><label>Medium:</label></div>
+    <div class="col-4"><input type="number" id="mediumInput" class="form-control"></div>
+    <div class="col-4"><span id="mediumNeed" class="fw-bold">0</span></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-4 text-end"><label>Large:</label></div>
+    <div class="col-4"><input type="number" id="largeInput" class="form-control"></div>
+    <div class="col-4"><span id="largeNeed" class="fw-bold">0</span></div>
+  </div>
+
+  <div class="row mb-2">
+    <div class="col-4 text-end"><label>Grand:</label></div>
+    <div class="col-4"><input type="number" id="grandInput" class="form-control"></div>
+    <div class="col-4"><span id="grandNeed" class="fw-bold">0</span></div>
+  </div>
+</div>
+
+<script>
+  // Get current day (0 = Sunday, 1 = Monday, ...)
+  const today = new Date().getDay();
+
+  // Define par levels for each day
+  const parLevels = {
+    0: { medium: 95, large: 90, grand: 18 },   // Sunday
+    1: { medium: 80, large: 80, grand: 12 },   // Monday
+    2: { medium: 80, large: 80, grand: 12 },   // Tuesday
+    3: { medium: 80, large: 80, grand: 12 },   // Wednesday
+    4: { medium: 90, large: 85, grand: 12 },   // Thursday
+    5: { medium: 100, large: 100, grand: 20 }, // Friday
+    6: { medium: 100, large: 100, grand: 20 }  // Saturday
+  };
+
+  const par = parLevels[today];
+
+  // Display current day info
+  const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  document.getElementById("dayLabel").textContent =
+    `${days[today]} Par: Medium ${par.medium}, Large ${par.large}, Grand ${par.grand}`;
+
+  // Function to update the “need” numbers
+  function updateNeed() {
+    const medium = parseInt(document.getElementById("mediumInput").value) || 0;
+    const large = parseInt(document.getElementById("largeInput").value) || 0;
+    const grand = parseInt(document.getElementById("grandInput").value) || 0;
+
+    updateDisplay("mediumNeed", par.medium, medium);
+    updateDisplay("largeNeed", par.large, large);
+    updateDisplay("grandNeed", par.grand, grand);
+  }
+
+  function updateDisplay(id, parValue, currentValue) {
+    const need = Math.max(parValue - currentValue, 0);
+    const el = document.getElementById(id);
+    el.textContent = need;
+    el.style.color = need > 0 ? "red" : "green";
+  }
+
+  // Add event listeners for input changes
+  document.querySelectorAll("input").forEach(input => {
+    input.addEventListener("input", updateNeed);
+  });
+
+  // Initialize
+  updateNeed();
+</script>
+
+{% endblock %}

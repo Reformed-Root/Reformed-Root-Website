@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Vault Roller{% endblock %}
+
+{% block body_class %}playmat{% endblock %}
+
+{% block content %}
+<div id="dice-container">
+  <canvas id="dice-canvas"></canvas>
+  <div id="roll-output"></div>
+</div>
+
+<div id="bottom-bar">
+  <div id="input-panel">
+    <label>
+      Sides:
+      <input type="number" id="sides-input" value="20" min="2" />
+    </label>
+    <label>
+      Rolls:
+      <input type="number" id="rolls-input" value="1" min="1" />
+    </label>
+    <button id="roll-button">Roll Dice</button>
+    <button id="clear-button">Clear</button>
+  </div>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const sidesInput = document.getElementById('sides-input');
+  const rollsInput = document.getElementById('rolls-input');
+  const rollButton = document.getElementById('roll-button');
+  const clearButton = document.getElementById('clear-button');
+  const outputDiv = document.getElementById('roll-output');
+
+ rollButton.addEventListener('click', () => {
+  const sides = parseInt(sidesInput.value) || 20;
+  const rolls = parseInt(rollsInput.value) || 1;
+
+  let rollsArray = [];
+  for (let i = 0; i < rolls; i++) {
+    const result = Math.floor(Math.random() * sides) + 1;
+    rollsArray.push(result);
+  }
+
+  const total = rollsArray.reduce((a, b) => a + b, 0);
+
+ let resultsHTML = `
+  <div class="roll-session">
+    <div class="roll-label">Rolling ${rolls}d${sides}:</div>
+    <div class="roll-results">${rollsArray.join(', ')} <span class="total">(Total: ${total})</span></div>
+  </div>`;
+
+
+  outputDiv.insertAdjacentHTML('beforeend', resultsHTML);
+});
+
+
+  clearButton.addEventListener('click', () => {
+    outputDiv.innerHTML = '';
+  });
+});
+</script>
+{% endblock %}

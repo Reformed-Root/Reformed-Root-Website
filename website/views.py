@@ -10,6 +10,18 @@ views = Blueprint('views', __name__)
 def home():
     return render_template('index.html', user=session.get('user'))
 
+@views.route('/vault-roller')
+def vault_roller():
+    return render_template('vault-roller.html')
+
+@views.route('/num_tracker')
+def num_tracker():
+    return render_template('num_tracker.html')
+
+@views.route('/dough_par')
+def dough_par():
+    return render_template('dough_par.html')
+
 @views.route('/challenge', methods=['GET', 'POST'])
 def challenge():
     if request.method == 'POST':

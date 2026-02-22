@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+
+{% block title %}Pizza Numbers{% endblock %}
+
+{% block body_class %}pizza{% endblock %}
+
+{% block content %}
+
+<h2>Pizza Numbers</h2>
+
+<div class="tracker-container">
+  <input type="number" id="numberInput" min="1" max="400" />
+  <button onclick="handleAdd()">Add Number</button>
+  <button onclick="handleClear()">Clear Set</button>
+  <button onclick="handleShowMissing()">Show Missing</button>
+  <p id="output"></p>
+</div>
+
+<script>
+  const MAX_NUMBER = 400;
+  const STORAGE_KEY = "pizza_marker_set";
+
+  function getMarkerSet() {
+    const data = localStorage.getItem(STORAGE_KEY);
+    return data ? JSON.parse(data) : [];
+  }
+
+  function saveMarkerSet(set) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(set));
+  }
+
+  function addNumber(num) {
+    const set = getMarkerSet();
+    if (num < 1 || num > MAX_NUMBER) {
+      return "Invalid number. Must be between 1 and 400.";
+    }
+    if (set.includes(num)) {
+      return `Number ${num} is already in the set.`;
+    }
+    set.push(num);
+    saveMarkerSet(set);
+    return `Number ${num} added to the set.`;
+  }
+
+  function getMissingNumbers() {
+    const set = new Set(getMarkerSet());
+    const missing = [];
+    for (let i = 1; i <= MAX_NUMBER; i++) {
+      if (!set.has(i)) {
+        missing.push(i);
+      }
+    }
+    return missing;
+  }
+
+  function clearSet() {
+    localStorage.removeItem(STORAGE_KEY);
+    return "Set cleared.";
+  }
+
+  function showMessage(message, isError = false) {
+    const output = document.getElementById("output");
+    output.textContent = message;
+    output.className = isError ? "output-error" : "";
+  }
+
+  function handleAdd() {
+    const input = document.getElementById("numberInput");
+    const num = parseInt(input.value);
+    const result = addNumber(num);
+
+    const isError = result.includes("Invalid") || result.includes("already");
+    showMessage(result, isError);
+
+    if (!isError) {
+      input.value = "";
+    }
+  }
+
+  function handleClear() {
+    const result = clearSet();
+    showMessage(result);
+  }
+
+  function handleShowMissing() {
+    const missing = getMissingNumbers();
+    const message = `Missing (${missing.length}): ${missing.join(', ')}`;
+    showMessage(message);
+  }
+
+  window.addEventListener("DOMContentLoaded", () => {
+    const input = document.getElementById("numberInput");
+    if (input) {
+      input.addEventListener("keypress", function (e) {
+        if (e.key === "Enter") {
+          handleAdd();
+        }
+      });
+    }
+  });
+</script>
+
+{% endblock %}
